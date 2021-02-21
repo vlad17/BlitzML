@@ -2,7 +2,7 @@
 
 import os
 import ctypes
-import numpy as np 
+import numpy as np
 from scipy import sparse as sp
 import pickle
 import glob
@@ -15,11 +15,11 @@ def load_library():
   glob_pathname = os.path.join(current_dir, glob_string)
   for path in glob.glob(glob_pathname):
     try:
-      return np.ctypeslib.load_library(path, "/")    
+      return np.ctypeslib.load_library(path, "/")
     except OSError:
       pass
   raise Exception("Could not load C library")
-  
+
 lib = load_library()
 
 index_t = ctypes.c_int
@@ -113,7 +113,7 @@ for call in new_solver_calls:
   call.restype = pointer_t
   wrapper_call_name = "{}_wrapper".format(call.__name__)
   setattr(lib, wrapper_call_name, wrap_new_call(call, lib.BlitzML_delete_solver))
-  
+
 
 _module_vars = {"warnings_suppressed": False}
 
@@ -132,7 +132,7 @@ def print_if_not_suppressed(message):
   if not _module_vars["warnings_suppressed"]:
     message = add_line_breaks(message)
     print(message)
-    
+
 def warn(message):
   print_if_not_suppressed("Warning: {}".format(message))
 
@@ -140,7 +140,7 @@ def value_error(message):
   raise ValueError(add_line_breaks(message, length=12))
 
 def suppress_warnings():
-  """Stop BlitzML from printing warning messages to sys.stdout. By default, 
+  """Stop BlitzML from printing warning messages to sys.stdout. By default,
   warning messages are unsuppressed.
   """
   _module_vars["warnings_suppressed"] = True
@@ -153,7 +153,11 @@ data_copy_warning_cutoff = 1e7
 
 
 def data_as(obj, ctypes_type):
-  if obj.dtype != np.dtype(ctypes_type):
+  try:
+    eq = obj.dtype != np.dtype(ctypes_type)
+  except:
+    eq = False
+  if eq:
     nnz = np.prod(obj.shape)
     if nnz > data_copy_warning_cutoff:
       msg = ("Copying numpy.ndarray of size {:d} from type {} to {}. "
@@ -174,7 +178,7 @@ class Problem(object):
     for k, v in kwargs.items():
       setattr(self, "_{}".format(k), v)
     suppress_warnings_ = _module_vars["warnings_suppressed"]
-    lib.BlitzML_set_suppress_warnings(self._solver_c_wrap.c_pointer, 
+    lib.BlitzML_set_suppress_warnings(self._solver_c_wrap.c_pointer,
                                       bool_t(suppress_warnings_))
 
   def _set_parameters(self, parameters):
@@ -216,8 +220,8 @@ class Problem(object):
 
   @property
   def _max_time(self):
-    """Time limit in seconds for solve call. If stopping tolerance is not 
-    reached, optimization terminates after this number of seconds.  Default is 
+    """Time limit in seconds for solve call. If stopping tolerance is not
+    reached, optimization terminates after this number of seconds.  Default is
     1 year.
     """
     return lib.BlitzML_max_time(self._solver_c_wrap.c_pointer)
@@ -228,8 +232,8 @@ class Problem(object):
 
   @property
   def _max_iterations(self):
-    """Iterations limit for solve call. If stopping tolerance is not reached 
-    after this number of iterations, optimization terminates.  Default is 
+    """Iterations limit for solve call. If stopping tolerance is not reached
+    after this number of iterations, optimization terminates.  Default is
     100000.
     """
     return lib.BlitzML_max_iterations(self._solver_c_wrap.c_pointer)
@@ -240,8 +244,8 @@ class Problem(object):
 
   @property
   def _min_time(self):
-    """Minimum time in seconds for solve call.  Optimization continues until 
-    this amount of time passes, even after reaching stopping tolerance.  
+    """Minimum time in seconds for solve call.  Optimization continues until
+    this amount of time passes, even after reaching stopping tolerance.
     Default is zero.
     """
     return lib.BlitzML_min_time(self._solver_c_wrap.c_pointer)
@@ -263,7 +267,7 @@ class Problem(object):
 
   @property
   def _use_working_sets(self):
-    """If True, BlitzML solves the problem using working sets.  Default is 
+    """If True, BlitzML solves the problem using working sets.  Default is
     True.  Setting to False likely results in slower optimization.
     """
     return lib.BlitzML_use_working_sets(self._solver_c_wrap.c_pointer)
@@ -274,7 +278,7 @@ class Problem(object):
 
   @property
   def _use_screening(self):
-    """If True, BlitzML solves the problem using safe screening.  Default is 
+    """If True, BlitzML solves the problem using safe screening.  Default is
     True.  Setting to False may result in slower optimization.
     """
     return lib.BlitzML_use_screening(self._solver_c_wrap.c_pointer)
@@ -285,7 +289,7 @@ class Problem(object):
 
   @property
   def _log_vectors(self):
-    """If True, BlitzML solves the problem using working sets.  Default is 
+    """If True, BlitzML solves the problem using working sets.  Default is
     True.  Setting to False likely results in slower optimization.
     """
     return lib.BlitzML_log_vectors(self._solver_c_wrap.c_pointer)
@@ -296,7 +300,7 @@ class Problem(object):
 
 
 class BlitzMLSolution(object):
-  def __init__(self, weights, bias, dual_solution, 
+  def __init__(self, weights, bias, dual_solution,
                status, duality_gap, objective_value):
     self._weights = weights
     self._bias = bias
@@ -362,7 +366,7 @@ class BlitzMLSolution(object):
     self._solution_status = solution_status
 
   def compute_loss(self, A, b):
-    """Compute the sum 
+    """Compute the sum
 
     .. math::
          \sum_i L(a_i^T w, b_i) ,
@@ -436,7 +440,7 @@ class ClassificationSolution(BlitzMLSolution):
     preds[preds < 0] = -1.
     preds[preds >= 0] = 1.
     return preds
- 
+
 
 def load_solution(filepath):
   """Load BlitzMLSolution from disk.
@@ -520,4 +524,3 @@ def check_logreg_labels(b):
     msg = ("Labels vector contains no positive labels. Label positive training "
            "instances with 1.")
     warn(msg)
-
