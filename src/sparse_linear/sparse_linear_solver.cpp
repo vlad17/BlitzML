@@ -660,7 +660,7 @@ void SparseLinearSolver::initialize_blitz_variables(
   y.assign(num_examples, 0.);
   ATy.assign(num_components, 0.);
 
-  update_x();
+  update_x(0.0);
   update_bias(15);
 
   z = x;
@@ -795,4 +795,3 @@ void SparseLinearSolver::delete_loss_function() {
 
 
 } // namespace BlitzML
-

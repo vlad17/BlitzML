@@ -35,7 +35,7 @@ class Logger {
         return;
       }
 
-      main_log_file << name << ": " << value << "\n";
+      main_log_file << name << ": " << value << std::endl;
     }
 
     template <typename T>
