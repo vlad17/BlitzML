@@ -25,7 +25,7 @@ value_t Column::l2_norm_centered() const {
 
 
 void Dataset::contiguous_submatrix_multiply(
-    const std::vector<value_t> &values, value_t* result, 
+    const std::vector<value_t> &values, value_t* result,
     index_t first_column_submatrix, index_t end_column_submatrix) const {
 
   index_t j, result_ind;

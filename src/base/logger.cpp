@@ -13,7 +13,7 @@ Logger::Logger() :
       min_time_interval(0.),
       last_log_time(0.),
       num_points_logged(0),
-      suppress_warnings_(false) { } 
+      suppress_warnings_(false) { }
 
 
 void Logger::close_files() {
@@ -23,8 +23,8 @@ void Logger::close_files() {
 }
 
 
-void Logger::set_log_directory(const char* directory) { 
-  log_directory = directory; 
+void Logger::set_log_directory(const char* directory) {
+  log_directory = directory;
   directory_is_valid = (log_directory.length() > 0) ? true : false;
   if (!directory_is_valid) {
     return;
@@ -46,7 +46,7 @@ bool Logger::log_new_point(double elapsed_time, value_t obj, bool force_no_throt
     return false;
   }
 
-  throttle_point = (num_points_logged > 0) && 
+  throttle_point = (num_points_logged > 0) &&
                    (elapsed_time < last_log_time + min_time_interval) &&
                    (!force_no_throttle);
   if (throttle_point) {

@@ -8,7 +8,7 @@ from common import matrix_vector_product
 from common import normalize_labels
 
 def is_solution(sol, A, b, lam, tol=1e-3):
-  Aomega = sol.bias + matrix_vector_product(A, sol.weights) 
+  Aomega = sol.bias + matrix_vector_product(A, sol.weights)
   exp_bAomega = np.exp(b * Aomega)
   grads = matrix_vector_product(A.T, -b / (1 + exp_bAomega))
   max_grads = np.max(abs(grads))

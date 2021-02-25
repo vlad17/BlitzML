@@ -13,11 +13,11 @@ class SmoothLoss {
     virtual ~SmoothLoss() { }
 
     virtual value_t compute_loss(value_t a_dot_omega, value_t label) const = 0;
-    virtual value_t compute_conjugate(value_t dual_variable, 
+    virtual value_t compute_conjugate(value_t dual_variable,
                                       value_t label) const = 0;
-    virtual value_t compute_deriative(value_t a_dot_omega, 
+    virtual value_t compute_deriative(value_t a_dot_omega,
                                       value_t label) const = 0;
-    virtual value_t compute_2nd_derivative(value_t a_dot_omega, 
+    virtual value_t compute_2nd_derivative(value_t a_dot_omega,
                                            value_t label) const = 0;
     virtual value_t lipschitz_constant() const = 0;
 };

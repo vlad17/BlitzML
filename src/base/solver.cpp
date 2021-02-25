@@ -11,13 +11,13 @@
 
 using std::vector;
 using std::swap;
-using std::max; 
+using std::max;
 using std::min;
 
 
 namespace BlitzML {
 
-void Solver::solve(const Dataset *data, const Parameters *params, 
+void Solver::solve(const Dataset *data, const Parameters *params,
                    value_t *result, char *status_message,
                    const char *log_directory) {
   solver_timer.reset();
@@ -36,7 +36,7 @@ void Solver::solve(const Dataset *data, const Parameters *params,
   initialize_priority_vectors();
   initialize(result);
   scheduler.reset();
-  scheduler.set_strong_convexity_constant(strong_convexity_constant()); 
+  scheduler.set_strong_convexity_constant(strong_convexity_constant());
 
   obj_vals.set_dual_obj(compute_dual_obj());
   obj_vals.set_primal_obj_y(1e30);
@@ -53,7 +53,7 @@ void Solver::solve(const Dataset *data, const Parameters *params,
       screen_components();
     }
     scheduler.record_overhead_time(overhead_timer.elapsed_time());
-    
+
     setup_subproblem();
 
     subproblem_solve_timer.reset();
@@ -111,7 +111,7 @@ void Solver::record_subproblem_progress() {
   value_t subproblem_duality_gap = obj_vals.primal_obj_x() - obj_vals.dual_obj();
   scheduler.record_subproblem_progress(obj_vals.duality_gap(),
                                        subproblem_duality_gap,
-                                       subproblem_time, 
+                                       subproblem_time,
                                        alpha);
 }
 
@@ -153,7 +153,7 @@ void Solver::update_priority_values() {
     if (capsule_ind < capsule_candidates.size()) {
       ++total;
       problem_size_diffs[capsule_ind] += size_of_component(i);
-    } 
+    }
   }
 }
 
@@ -189,7 +189,7 @@ void Solver::log_info(bool force_log) {
 
   double elapsed_time = solver_timer.elapsed_time();
   if (verbose()) {
-    print("Time: %5e, dual objective: %7e, duality gap: %7e", 
+    print("Time: %5e, dual objective: %7e, duality gap: %7e",
            elapsed_time, obj_vals.dual_obj(), obj_vals.duality_gap());
   }
 
@@ -218,7 +218,7 @@ Solver::ConvergenceStatus Solver::get_convergence_status() {
   double elapsed_time = solver_timer.elapsed_time();
   if (obj_vals.duality_gap() == 0. && (elapsed_time > min_time())) {
     return REACHED_STOPPING_TOLERANCE;
-  } else if (obj_vals.dual_obj() != 0. 
+  } else if (obj_vals.dual_obj() != 0.
              && obj_vals.duality_gap() / fabs(obj_vals.dual_obj()) < tolerance()
              && elapsed_time > min_time()) {
     return REACHED_STOPPING_TOLERANCE;
@@ -229,7 +229,7 @@ Solver::ConvergenceStatus Solver::get_convergence_status() {
   if (iteration_number > max_iterations()) {
     return EXCEEDED_MAX_ITERATIONS;
   }
-  if (iteration_number > 1 
+  if (iteration_number > 1
       && obj_vals.dual_obj() <= dual_objective_last_iteration
       && obj_vals.duality_gap() >= duality_gap_last_iteration) {
     return REACHED_MACHINE_PRECISION;
@@ -239,10 +239,10 @@ Solver::ConvergenceStatus Solver::get_convergence_status() {
 }
 
 
-void Solver::set_status_message(char* status_message, 
+void Solver::set_status_message(char* status_message,
                                 Solver::ConvergenceStatus status) {
   switch (status) {
-    case REACHED_STOPPING_TOLERANCE: 
+    case REACHED_STOPPING_TOLERANCE:
       strcpy(status_message, "Reached stopping tolerance");
       break;
     case EXCEEDED_TIME_LIMIT:
@@ -284,7 +284,7 @@ void Solver::set_subproblem_parameters() {
 
   double overhead_time_est = scheduler.overhead_time_estimate();
   subproblem_params.max_iterations = 1000;
-  subproblem_params.min_time = 0.1 * overhead_time_est; 
+  subproblem_params.min_time = 0.1 * overhead_time_est;
 
   value_t best_epsilon;
   double best_time_limit;
@@ -294,9 +294,9 @@ void Solver::set_subproblem_parameters() {
     scheduler.optimize_xi_and_epsilon(best_capsule_ind, best_epsilon, best_time_limit);
   } else {
     best_epsilon = 0.5;
-    best_time_limit = 2 * overhead_time_est; 
+    best_time_limit = 2 * overhead_time_est;
     best_capsule_ind = 0;
-    while ((capsule_candidates[best_capsule_ind].xi < 1.0) && 
+    while ((capsule_candidates[best_capsule_ind].xi < 1.0) &&
            (problem_size_candidates[best_capsule_ind] < problem_size_candidates.back())) {
       ++best_capsule_ind;
     }

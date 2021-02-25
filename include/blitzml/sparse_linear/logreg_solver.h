@@ -13,7 +13,7 @@ class SparseLogRegSolver : public SparseLinearSolver {
     std::vector<bool> is_positive_label;
     index_t num_positive_labels;
     bool problem_is_degenerate;
-    
+
     inline value_t compute_prob(index_t j);
     inline value_t compute_x_value(index_t j);
 

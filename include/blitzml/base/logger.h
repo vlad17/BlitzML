@@ -13,7 +13,7 @@ class Logger {
   public:
     Logger();
 
-    virtual ~Logger() { 
+    virtual ~Logger() {
       if (main_log_file.is_open()) {
         main_log_file.close();
       }

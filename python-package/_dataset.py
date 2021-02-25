@@ -107,7 +107,7 @@ class Dataset(object):
     A_args_c = [A_indices_c, A_indptr_c, A_data_c]
 
     c_args = A_args_c + self.shape_args() + self.b_args()
-    ret = call_c(*c_args)   
+    ret = call_c(*c_args)
     return ret
 
 

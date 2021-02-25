@@ -34,7 +34,7 @@ class CapsuleCalculator {
     value_t compute_right_boundary(value_t xi);
 
     value_t compute_radius(value_t xi);
-    
+
     value_t compute_tau(value_t beta, value_t xi, int shift_term_multiplier);
 
     value_t compute_deriv_tau(value_t beta, value_t xi, int shift_term_multiplier);

@@ -14,7 +14,7 @@ size_t coordinates2dense_array_index(index_t row, index_t col, index_t height) {
 
 
 template <typename data_t>
-DenseColumn<data_t>::DenseColumn(const data_t *values, index_t length) 
+DenseColumn<data_t>::DenseColumn(const data_t *values, index_t length)
     : Column(length, length), values(values) { }
 
 
@@ -91,9 +91,9 @@ template class DenseColumn<bool>;
 
 
 template<typename data_t>
-DenseDataset<data_t>::DenseDataset(const data_t *data, 
-    index_t height, index_t width, const value_t *b, index_t length_b) 
-    : Dataset(height, width, 
+DenseDataset<data_t>::DenseDataset(const data_t *data,
+    index_t height, index_t width, const value_t *b, index_t length_b)
+    : Dataset(height, width,
               coordinates2dense_array_index(0, width, height),
               b, length_b) {
   A_cols.clear();

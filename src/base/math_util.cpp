@@ -7,7 +7,7 @@ using std::pair;
 namespace BlitzML {
 
 
-pair<value_t, value_t> compute_quadratic_roots(value_t a, value_t b, 
+pair<value_t, value_t> compute_quadratic_roots(value_t a, value_t b,
                                                     value_t c) {
   value_t discriminant = b*b - 4*a*c;
   bool result_exists = (discriminant >= 0);
@@ -17,7 +17,7 @@ pair<value_t, value_t> compute_quadratic_roots(value_t a, value_t b,
   if (!result_exists) {
     value_t nan = std::numeric_limits<value_t>::quiet_NaN();
     return pair<value_t, value_t>(nan, nan);
-  } 
+  }
   if (a == 0.) {
     value_t result = -c/b;
     return pair<value_t, value_t>(result, result);

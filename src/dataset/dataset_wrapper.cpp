@@ -10,10 +10,10 @@ LIBRARY_API
 Dataset* BlitzML_new_sparse_dataset_float(const index_t* indices,
                                           const size_t* indptr,
                                           const float* data,
-                                          index_t height, index_t width, 
+                                          index_t height, index_t width,
                                           size_t nnz,
                                           const value_t *b, index_t length_b) {
-  return new SparseDataset<float>(indices, indptr, data, 
+  return new SparseDataset<float>(indices, indptr, data,
                                   height, width, nnz, b, length_b);
 }
 
@@ -22,10 +22,10 @@ LIBRARY_API
 Dataset* BlitzML_new_sparse_dataset_double(const index_t* indices,
                                            const size_t* indptr,
                                            const double* data,
-                                           index_t height, index_t width, 
+                                           index_t height, index_t width,
                                            size_t nnz,
                                            const value_t *b, index_t length_b) {
-  return new SparseDataset<double>(indices, indptr, data, 
+  return new SparseDataset<double>(indices, indptr, data,
                                    height, width, nnz, b, length_b);
 }
 
@@ -34,10 +34,10 @@ LIBRARY_API
 Dataset* BlitzML_new_sparse_dataset_int(const index_t* indices,
                                         const size_t* indptr,
                                         const int* data,
-                                        index_t height, index_t width, 
+                                        index_t height, index_t width,
                                         size_t nnz,
                                         const value_t *b, index_t length_b) {
-  return new SparseDataset<int>(indices, indptr, data, 
+  return new SparseDataset<int>(indices, indptr, data,
                                 height, width, nnz, b, length_b);
 }
 
@@ -46,10 +46,10 @@ LIBRARY_API
 Dataset* BlitzML_new_sparse_dataset_bool(const index_t* indices,
                                          const size_t* indptr,
                                          const bool* data,
-                                         index_t height, index_t width, 
+                                         index_t height, index_t width,
                                          size_t nnz,
                                          const value_t *b, index_t length_b) {
-  return new SparseDataset<bool>(indices, indptr, data, 
+  return new SparseDataset<bool>(indices, indptr, data,
                                  height, width, nnz, b, length_b);
 }
 
@@ -57,10 +57,10 @@ Dataset* BlitzML_new_sparse_dataset_bool(const index_t* indices,
 LIBRARY_API
 Dataset* BlitzML_new_sparse_binary_dataset(const index_t* indices,
                                            const size_t* indptr,
-                                           index_t height, index_t width, 
+                                           index_t height, index_t width,
                                            size_t nnz,
                                            const value_t *b, index_t length_b) {
-  return new SparseBinaryDataset(indices, indptr, 
+  return new SparseBinaryDataset(indices, indptr,
                                  height, width, nnz, b, length_b);
 }
 

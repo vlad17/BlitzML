@@ -7,8 +7,8 @@ using std::vector;
 namespace BlitzML {
 
 template <typename data_t>
-SparseColumn<data_t>::SparseColumn(const index_t *indices, const data_t *values, 
-                                   index_t nnz, index_t length) 
+SparseColumn<data_t>::SparseColumn(const index_t *indices, const data_t *values,
+                                   index_t nnz, index_t length)
     : Column(length, nnz), indices(indices), values(values) { }
 
 
@@ -24,7 +24,7 @@ value_t SparseColumn<data_t>::inner_product(const vector<value_t> &vec) const {
 
 template <typename data_t>
 value_t SparseColumn<data_t>::weighted_inner_product(
-    const vector<value_t> &vec, 
+    const vector<value_t> &vec,
     const vector<value_t> &weights) const {
   value_t result = 0.;
   for (index_t ind = 0; ind < nnz_; ++ind) {
@@ -47,9 +47,9 @@ value_t SparseColumn<data_t>::weighted_norm_sq(
 
 
 template <typename data_t>
-void SparseColumn<data_t>::add_multiple(vector<value_t> &target, 
+void SparseColumn<data_t>::add_multiple(vector<value_t> &target,
                                         value_t scalar) const {
-                                            
+
   const index_t* i = indices;
   const data_t* v = values;
   for (index_t n = nnz_; n != 0; --n) {
@@ -97,10 +97,10 @@ template class SparseColumn<bool>;
 
 template <typename data_t>
 SparseDataset<data_t>::SparseDataset(
-    const index_t *indices, const size_t *indptr, const data_t *data, 
-    index_t height, index_t width, size_t nnz, 
-    const value_t *b, index_t length_b) 
-    : Dataset(height, width, nnz, b, length_b) { 
+    const index_t *indices, const size_t *indptr, const data_t *data,
+    index_t height, index_t width, size_t nnz,
+    const value_t *b, index_t length_b)
+    : Dataset(height, width, nnz, b, length_b) {
 
   A_cols.resize(width);
   for (index_t j = 0; j < width; ++j) {
@@ -119,7 +119,7 @@ bool SparseDataset<data_t>::any_columns_overlapping_in_submatrix(
   vector<bool> seen_row(height, false);
   for (index_t j = first_column_submatrix; j < end_column_submatrix; ++j) {
     const SparseColumn<data_t>& col = A_cols[j];
-    for (const index_t* i = col.indices_begin(); 
+    for (const index_t* i = col.indices_begin();
          i != col.indices_end(); ++i) {
       if (seen_row[*i]) {
         return true;

@@ -67,7 +67,7 @@ TEST_CASE( "is_vector_const", "[vector_util]" ) {
   REQUIRE( is_vector_const(v) == true );
   v[0] = 25.;
   REQUIRE( is_vector_const(v) == false );
-  v[0] = -25.; 
+  v[0] = -25.;
   REQUIRE( is_vector_const(v) == true );
   v[99] = 25.;
   REQUIRE( is_vector_const(v) == false );

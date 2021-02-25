@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <blitzml/base/common.h>
 #include <blitzml/base/vector_util.h>
@@ -18,7 +18,7 @@ class WorkingSet {
     void reduce_max_size(size_t new_size);
 
     inline size_t size() const {
-      return size_working_set; 
+      return size_working_set;
     }
 
     inline void add_index(index_t i) {
@@ -37,31 +37,31 @@ class WorkingSet {
       return in_working_set[i];
     }
 
-    void shuffle(); 
+    void shuffle();
     void shuffle_indices();
 
-    inline const_index_itr begin() const { 
-      return working_set.begin(); 
+    inline const_index_itr begin() const {
+      return working_set.begin();
     }
 
-    inline const_index_itr end() const { 
-      return working_set.begin() + size_working_set; 
+    inline const_index_itr end() const {
+      return working_set.begin() + size_working_set;
     }
 
-    inline const_index_itr begin_sorted() const { 
-      return sorted_working_set.begin(); 
+    inline const_index_itr begin_sorted() const {
+      return sorted_working_set.begin();
     }
 
-    inline const_index_itr end_sorted() const { 
-      return sorted_working_set.begin() + size_working_set; 
+    inline const_index_itr end_sorted() const {
+      return sorted_working_set.begin() + size_working_set;
     }
 
-    inline const_index_itr begin_indices() const { 
-      return indices.begin(); 
+    inline const_index_itr begin_indices() const {
+      return indices.begin();
     }
 
-    inline const_index_itr end_indices() const { 
-      return indices.begin() + size_working_set; 
+    inline const_index_itr end_indices() const {
+      return indices.begin() + size_working_set;
     }
 
   private:

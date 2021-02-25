@@ -2,8 +2,8 @@
 
 namespace BlitzML {
 
-void WorkingSet::clear() { 
-  size_working_set = 0; 
+void WorkingSet::clear() {
+  size_working_set = 0;
   in_working_set.assign(max_size, false);
 }
 
@@ -15,8 +15,8 @@ void WorkingSet::set_max_size(size_t size) {
   max_size = size;
 }
 
-void WorkingSet::reduce_max_size(size_t new_size) { 
-  max_size = new_size; 
+void WorkingSet::reduce_max_size(size_t new_size) {
+  max_size = new_size;
 }
 
 void WorkingSet::shuffle() {

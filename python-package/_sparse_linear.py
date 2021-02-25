@@ -10,7 +10,7 @@ lib.BlitzML_sparse_linear_solver_compute_max_l1_penalty.restype = value_t
 class SparseLinearProblem(Problem):
   def __init__(self, A, b):
     self._check_data_inputs(A, b)
-    self._dataset = Dataset(A, b) 
+    self._dataset = Dataset(A, b)
     self._set_solver_c()
 
   def _set_solver_c(self):
@@ -30,7 +30,7 @@ class SparseLinearProblem(Problem):
              "Matrix must be 2d.").format(A.shape)
       value_error(msg)
     if b.ndim != 1:
-      msg = ("Labels vector with shape {} is invalid. " 
+      msg = ("Labels vector with shape {} is invalid. "
              "Labels must be 1d.").format(b.shape)
       value_error(msg)
     if A.shape[0] != len(b):
@@ -59,14 +59,14 @@ class SparseLinearProblem(Problem):
     parameters_c_wrap = self._set_parameters(parameters)
 
     ret = lib.BlitzML_sparse_linear_solver_compute_max_l1_penalty(
-                                              self._solver_c_wrap.c_pointer, 
-                                              self._dataset.c_pointer, 
+                                              self._solver_c_wrap.c_pointer,
+                                              self._dataset.c_pointer,
                                               parameters_c_wrap.c_pointer)
     return ret
-    
 
-  def solve(self, l1_penalty, include_bias_term=True, initial_weights=None, 
-            stopping_tolerance=1e-3, max_time=3.154e+7, min_time=0., 
+
+  def solve(self, l1_penalty, include_bias_term=True, initial_weights=None,
+            stopping_tolerance=1e-3, max_time=3.154e+7, min_time=0.,
             max_iterations=100000, verbose=False, log_directory=None):
     r"""Minimizes the objective
 
@@ -84,7 +84,7 @@ class SparseLinearProblem(Problem):
       generally completes optimization faster.
 
     include_bias_term : bool, optional
-      Whether to include an unregularized bias parameter in the model.  
+      Whether to include an unregularized bias parameter in the model.
       Default is True.
 
     initial_weights : numpy.ndarray of length d, optional
@@ -97,35 +97,35 @@ class SparseLinearProblem(Problem):
       Default is 1e-3.
 
     max_time : float, optional
-      Time limit in seconds for solving. If stopping tolerance is not reached, 
+      Time limit in seconds for solving. If stopping tolerance is not reached,
       optimization terminates after this number of seconds.  Default is 1 year.
 
     min_time : float, optional
-      Minimum time in seconds for solving.  Optimization continues until 
-      this amount of time passes, even after reaching stopping tolerance.  
+      Minimum time in seconds for solving.  Optimization continues until
+      this amount of time passes, even after reaching stopping tolerance.
       Default is zero.
-    
+
     max_iterations : int, optional
-      Iterations limit for algorithm. If stopping tolerance is not reached 
-      after this number of iterations, optimization terminates.  Default is 
+      Iterations limit for algorithm. If stopping tolerance is not reached
+      after this number of iterations, optimization terminates.  Default is
       100000.
 
     verbose : bool, optional
-      Whether to print information, such as objective value, to sys.stdout 
+      Whether to print information, such as objective value, to sys.stdout
       during optimization. Default is False.
 
     log_directory : string, optional
-      Path to existing directory for Blitz to log time and objective value 
+      Path to existing directory for Blitz to log time and objective value
       information.  This directory should be empty prior to solving. Default
       is None.
 
-      
+
     Returns
     -------
-    solution : BlitzMLSolution 
+    solution : BlitzMLSolution
     """
     option_names = ["stopping_tolerance", "max_time", "min_time",
-                    "max_iterations", "verbose"] 
+                    "max_iterations", "verbose"]
     options = {}
     for name in option_names:
       options[name] = locals()[name]
@@ -147,11 +147,11 @@ class SparseLinearProblem(Problem):
 
     log_dir_c = self._set_log_directory(log_directory)
 
-    lib.BlitzML_solve_problem(self._solver_c_wrap.c_pointer, 
-                              self._dataset.c_pointer, 
-                              parameters_c_wrap.c_pointer, 
-                              result_c, 
-                              solution_status_c, 
+    lib.BlitzML_solve_problem(self._solver_c_wrap.c_pointer,
+                              self._dataset.c_pointer,
+                              parameters_c_wrap.c_pointer,
+                              result_c,
+                              solution_status_c,
                               log_dir_c)
 
     self._format_solution_status()
@@ -162,11 +162,11 @@ class SparseLinearProblem(Problem):
     duality_gap = result[-2]
     objective_value = -result[-1]
 
-    return self._solution_class(weights, 
-                                bias, 
-                                dual_solution, 
+    return self._solution_class(weights,
+                                bias,
+                                dual_solution,
                                 self._solution_status,
-                                duality_gap, 
+                                duality_gap,
                                 objective_value)
 
 
@@ -193,8 +193,8 @@ class LassoProblem(SparseLinearProblem):
 
   * If A is dense (numpy.ndarray), define A as an `F-contiguous array
     <https://docs.scipy.org/doc/numpy/reference/generated/numpy.asfortranarray.html>`_.
-    The dtype for A should match ctypes.c_double, ctypes.c_float, ctypes.c_int, 
-    or ctypes.c_bool---that is, ``A.dtype == ctypes.c_double`` evaluates to 
+    The dtype for A should match ctypes.c_double, ctypes.c_float, ctypes.c_int,
+    or ctypes.c_bool---that is, ``A.dtype == ctypes.c_double`` evaluates to
     True, for example.
 
   * If A is sparse, define A as a scipy.sparse.csc_matrix. The dtype for
@@ -204,8 +204,8 @@ class LassoProblem(SparseLinearProblem):
 
   * The dtype for b should match type ctypes.c_double.
 
-  BlitzML will print a warning when objects with more than 1e7 elements 
-  are being copied.  To suppress warnings, use ``blitzml.suppress_warnings()``. 
+  BlitzML will print a warning when objects with more than 1e7 elements
+  are being copied.  To suppress warnings, use ``blitzml.suppress_warnings()``.
   """
 
   @property
@@ -230,17 +230,17 @@ class SparseHuberProblem(SparseLinearProblem):
 
   .. math::
 
-    \sum_i L(a_i^T w, b_i) + \lambda ||w||_1 ,  
- 
+    \sum_i L(a_i^T w, b_i) + \lambda ||w||_1 ,
+
   where
-  
+
   .. math::
 
     L(a_i^T w, b_i) = \left\{
     \begin{array}{lll}
       \tfrac{1}2 (a_i^T w - b_i)^2 & & \text{if}\ |a_i^T w - b_i| < 1  \\[0.4em]
       a_i^T w - b_i - \onehalf     & & \text{if}\ a_i^T w - b_i \geq 1 \\[0.4em]
-      b_i - a_i^T w - \onehalf     & & \text{otherwise.} 
+      b_i - a_i^T w - \onehalf     & & \text{otherwise.}
     \end{array} \right.
 
   Here i indexes the ith row in A and ith entry in b.
@@ -266,8 +266,8 @@ class SparseLogisticRegressionProblem(SparseLinearProblem):
 
     \sum_i \log(1 + \exp(-b_i a_i^T w)) + \lambda ||w||_1 ,
 
-  where i indexes the ith row in A and ith entry in b.  Each label b_i should 
-  have value 1 or -1.  BlitzML treats other label values as 1 if the value 
+  where i indexes the ith row in A and ith entry in b.  Each label b_i should
+  have value 1 or -1.  BlitzML treats other label values as 1 if the value
   exceeds zero and -1 otherwise.
   """
   @property
@@ -294,7 +294,7 @@ class SparseSquaredHingeProblem(SparseLinearProblem):
 
     \sum_i \onehalf (1 - b_i a_i^T w)_+^2 + \lambda ||w||_1 ,
 
-  where the "+" subscript denotes the rectifier function.  Each label should 
+  where the "+" subscript denotes the rectifier function.  Each label should
   have value 1 or -1.
   """
   @property
@@ -316,17 +316,17 @@ class SparseSmoothedHingeProblem(SparseLinearProblem):
 
   .. math::
 
-    \sum_i L(a_i^T w, b_i) + \lambda ||w||_1 ,  
- 
+    \sum_i L(a_i^T w, b_i) + \lambda ||w||_1 ,
+
   where
-  
+
   .. math::
 
     L(a_i^T w, b_i) = \left\{
     \begin{array}{lll}
       \onehalf - b_i a_i^T w       && \text{if}\ b_i a_i^T w < 0       \\[0.4em]
       \onehalf (1 - b_i a_i^T w)^2 && \text{if}\ b_i a_i^T w \in [0,1) \\[0.4em]
-      0                            && \text{otherwise.} 
+      0                            && \text{otherwise.}
     \end{array} \right.
 
   Each label should have value 1 or -1.
@@ -358,7 +358,7 @@ class SparseHuberSolution(RegressionSolution):
     width = 1.
     residuals = Aw - b
     one_half_width_sq = 0.5 * width ** 2
-    
+
     left = np.sum(-width * residuals[residuals < -width] - one_half_width_sq)
     residuals[residuals < -width] = 0.
 
@@ -366,7 +366,7 @@ class SparseHuberSolution(RegressionSolution):
     residuals[residuals > width] = 0.
 
     middle = np.sum(residuals ** 2) * 0.5
-    
+
     return left + middle + right
 
 

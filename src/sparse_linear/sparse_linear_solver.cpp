@@ -16,7 +16,7 @@ using std::vector;
 namespace BlitzML {
 
 
-value_t SparseLinearSolver::compute_dual_obj() const { 
+value_t SparseLinearSolver::compute_dual_obj() const {
   value_t loss = 0.;
   for (index_t j = 0; j < num_examples; ++j) {
     loss += loss_function->compute_loss(Aomega[j], data->b_value(j));
@@ -25,7 +25,7 @@ value_t SparseLinearSolver::compute_dual_obj() const {
 }
 
 
-value_t SparseLinearSolver::compute_primal_obj_x() const { 
+value_t SparseLinearSolver::compute_primal_obj_x() const {
   value_t obj = 0.;
   for (index_t j = 0; j < num_examples; ++j) {
     obj += loss_function->compute_conjugate(kappa_x * x[j], data->b_value(j));
@@ -34,7 +34,7 @@ value_t SparseLinearSolver::compute_primal_obj_x() const {
 }
 
 
-value_t SparseLinearSolver::compute_primal_obj_y() const { 
+value_t SparseLinearSolver::compute_primal_obj_y() const {
   value_t obj = 0.;
   for (index_t j = 0; j < num_examples; ++j) {
     obj += loss_function->compute_conjugate(y[j], data->b_value(j));
@@ -43,7 +43,7 @@ value_t SparseLinearSolver::compute_primal_obj_y() const {
 }
 
 
-void SparseLinearSolver::update_subproblem_obj_vals() { 
+void SparseLinearSolver::update_subproblem_obj_vals() {
   value_t primal_obj_x = compute_primal_obj_x();
   value_t dual_obj = compute_dual_obj();
   obj_vals.set_primal_obj_x(primal_obj_x);
@@ -51,9 +51,9 @@ void SparseLinearSolver::update_subproblem_obj_vals() {
 }
 
 
-void SparseLinearSolver::solve_subproblem() { 
+void SparseLinearSolver::solve_subproblem() {
   SubproblemController controller(subproblem_params);
-  
+
   SubproblemState initial_state;
   set_initial_subproblem_state(initial_state);
 
@@ -89,7 +89,7 @@ void SparseLinearSolver::solve_subproblem() {
     update_subproblem_obj_vals();
     update_z();
 
-    bool sufficient_dual_progress = 
+    bool sufficient_dual_progress =
            check_sufficient_dual_progress(initial_state, subproblem_params.epsilon);
 
     if (controller.should_terminate(obj_vals, sufficient_dual_progress)
@@ -245,7 +245,7 @@ value_t SparseLinearSolver::update_feature(index_t working_set_ind) {
 
   index_t feature_ind = ws.ith_member(working_set_ind);
   const Column& col = *A_cols[feature_ind];
-  value_t grad = ATx[feature_ind] + 
+  value_t grad = ATx[feature_ind] +
          col.inner_product(Delta_Aomega) +
          col_ip_newton_2nd_derivative_cache[working_set_ind] * Delta_bias;
 
@@ -289,12 +289,12 @@ void SparseLinearSolver::update_bias(int max_newton_itr) {
       return;
     }
   }
-} 
+}
 
 
 value_t SparseLinearSolver::perform_newton_update_on_bias() {
   update_newton_2nd_derivatives();
-  Delta_bias = (sum_newton_2nd_derivatives > 0) ? 
+  Delta_bias = (sum_newton_2nd_derivatives > 0) ?
                   -sum_x / sum_newton_2nd_derivatives : -100 * sign(sum_x);
   Delta_bias = (fabs(Delta_bias) < 100) ? Delta_bias : 100 * sign(Delta_bias);
 
@@ -308,7 +308,7 @@ value_t SparseLinearSolver::perform_newton_update_on_bias() {
       add_scalar_to_vector(Aomega, change);
       return change;
     }
-    
+
     if (backtrack_itr <= 2) {
       step_size *= 0.5;
     } else {
@@ -361,7 +361,7 @@ compute_backtracking_step_size_derivative(value_t step_size) const {
     index_t i = ws.ith_member(*ind);
     value_t omega_i = omega[i] + step_size * Delta_omega[*ind];
     if (omega_i == 0.) {
-      derivative_l1 -= l1_penalty * fabs(Delta_omega[*ind]);  
+      derivative_l1 -= l1_penalty * fabs(Delta_omega[*ind]);
     } else {
       derivative_l1 += l1_penalty * Delta_omega[*ind] * sign(omega_i);
     }
@@ -387,7 +387,7 @@ void SparseLinearSolver::update_newton_2nd_derivatives(value_t epsilon_to_add) {
   for (index_t i = 0; i < num_examples; ++i) {
     value_t a_dot_omega = Aomega[i];
     value_t label = data->b_value(i);
-    newton_2nd_derivatives[i] = 
+    newton_2nd_derivatives[i] =
           loss_function->compute_2nd_derivative(a_dot_omega, label) + epsilon_to_add;
   }
   sum_newton_2nd_derivatives = sum_vector(newton_2nd_derivatives);
@@ -407,7 +407,7 @@ void SparseLinearSolver::update_kappa_x() {
 }
 
 
-value_t SparseLinearSolver::compute_alpha() { 
+value_t SparseLinearSolver::compute_alpha() {
   update_non_working_set_gradients();
   value_t alpha = 1.;
   for (index_t j = 0; j < num_components; ++j) {
@@ -458,7 +458,7 @@ value_t SparseLinearSolver::compute_alpha_for_feature(index_t i) const {
 }
 
 
-void SparseLinearSolver::update_y() { 
+void SparseLinearSolver::update_y() {
   value_t alpha_kappa_z = alpha * kappa_z;
   for (index_t j = 0; j < num_examples; ++j) {
     y[j] = alpha_kappa_z * z[j] + (1 - alpha) * y[j];
@@ -508,7 +508,7 @@ unsigned short SparseLinearSolver::compute_priority_value(index_t i) const {
 }
 
 
-void SparseLinearSolver::screen_components() { 
+void SparseLinearSolver::screen_components() {
   vector<bool> should_screen;
   bool any_screened = mark_components_to_screen(should_screen);
   if (any_screened) {
@@ -541,7 +541,7 @@ bool SparseLinearSolver::mark_components_to_screen(vector<bool> &should_screen) 
       continue;
     }
 
-    value_t val = (ATx[i] + ATy[i]) / 2; 
+    value_t val = (ATx[i] + ATy[i]) / 2;
     value_t dist = l1_penalty - fabs(val);
     if (dist < 0.) {
       continue;
@@ -590,12 +590,12 @@ size_t SparseLinearSolver::size_of_component(index_t i) const {
 }
 
 
-index_t SparseLinearSolver::initial_problem_size() const { 
+index_t SparseLinearSolver::initial_problem_size() const {
   return data->num_cols();
 }
 
 
-void SparseLinearSolver::initialize(value_t *initial_conditions) { 
+void SparseLinearSolver::initialize(value_t *initial_conditions) {
   deserialize_parameters();
   set_data_dimensions();
   initialize_proximal_newton_variables();
@@ -727,7 +727,7 @@ void SparseLinearSolver::initialize_proximal_newton_variables() {
 }
 
 
-void SparseLinearSolver::log_variables(Logger &logger) const { 
+void SparseLinearSolver::log_variables(Logger &logger) const {
   std::vector<index_t> indices;
   std::vector<value_t> values;
   size_t nnz_weights = l0_norm(omega);
@@ -750,7 +750,7 @@ void SparseLinearSolver::log_variables(Logger &logger) const {
 }
 
 
-void SparseLinearSolver::fill_result(value_t *result) const { 
+void SparseLinearSolver::fill_result(value_t *result) const {
   size_t ind = 0;
 
   // fill in weights

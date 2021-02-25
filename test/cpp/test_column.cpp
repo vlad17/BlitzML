@@ -17,7 +17,7 @@ TEST_CASE( "test_sparse_column", "[column]" ) {
   vector<value_t> v(12, 2.0);
   v[1] = 0.1; v[3] = -5.0; v[5] = 2.0; v[7] = 0.8; v[9] = -0.1;
   REQUIRE( col.inner_product(v) == Approx(3.) );
-  
+
   vector<value_t> w(12, 7.0);
   w[1] = 0.6; w[3] = 0.4; w[5] = -0.1; w[7] = 10.; w[9] = 0.5;
   REQUIRE( col.weighted_inner_product(v, w) == Approx(-7.69) );
@@ -64,10 +64,10 @@ TEST_CASE( "empty_sparse_column", "[column]" ) {
 
 TEST_CASE( "sparse_column_types", "[column]" ) {
   index_t indices[2] = {0, 2};
-  double data_double[2] = {1.0, 3.0}; 
-  float data_float[2] = {1.0, 3.0}; 
-  int data_int[2] = {1.0, 3.0}; 
-  bool data_bool[2] = {true, false}; 
+  double data_double[2] = {1.0, 3.0};
+  float data_float[2] = {1.0, 3.0};
+  int data_int[2] = {1.0, 3.0};
+  bool data_bool[2] = {true, false};
 
   SparseColumn<double> col_double(indices, data_double, 2, 3);
   SparseColumn<float> col_float(indices, data_float, 2, 3);
@@ -87,7 +87,7 @@ TEST_CASE( "test_binary_column", "[column]" ) {
   vector<value_t> v(12, 2.0);
   v[1] = 0.1; v[3] = -5.0; v[5] = 2.0; v[7] = 0.8; v[9] = -0.1;
   REQUIRE( col.inner_product(v) == Approx(-2.2) );
-  
+
   vector<value_t> w(12, 7.0);
   w[1] = 0.6; w[3] = 0.4; w[5] = -0.1; w[7] = 10.; w[9] = 0.5;
   REQUIRE( col.weighted_inner_product(v, w) == Approx(5.81) );
@@ -161,7 +161,7 @@ TEST_CASE( "dense_column_types", "[column]" ) {
   DenseColumn<float> col_float(data_float, 2);
   DenseColumn<int> col_int(data_int, 2);
   DenseColumn<bool> col_bool(data_bool, 2);
-  
+
   REQUIRE( col_double.mean() == 0.5 );
   REQUIRE( col_float.mean() == 0.5 );
   REQUIRE( col_int.mean() == 0.5 );

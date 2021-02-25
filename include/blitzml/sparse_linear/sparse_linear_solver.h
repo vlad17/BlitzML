@@ -14,7 +14,7 @@ class SparseLinearSolver : public Solver {
   public:
     SparseLinearSolver() : loss_function(NULL) { }
 
-    virtual ~SparseLinearSolver() { 
+    virtual ~SparseLinearSolver() {
       delete_loss_function();
     }
 
@@ -34,7 +34,7 @@ class SparseLinearSolver : public Solver {
     std::vector<value_t> ATy;
     std::vector<value_t> ATz;
     std::vector<value_t> z;
-    std::vector<value_t> Aomega;  
+    std::vector<value_t> Aomega;
     std::vector<value_t> newton_2nd_derivatives;
     std::vector<index_t> screen_indices_map;
 

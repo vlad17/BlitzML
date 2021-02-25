@@ -8,7 +8,7 @@ class LassoSolver : public SparseLinearSolver {
   public:
     virtual ~LassoSolver() { }
 
-  protected: 
+  protected:
     value_t compute_dual_obj() const;
     value_t compute_primal_obj_x() const;
     value_t compute_primal_obj_y() const;

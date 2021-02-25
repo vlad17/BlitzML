@@ -7,7 +7,7 @@ using std::vector;
 namespace BlitzML {
 
 SparseBinaryColumn::SparseBinaryColumn(const index_t *indices,
-                                       index_t nnz, index_t length) 
+                                       index_t nnz, index_t length)
     : Column(length, nnz), indices(indices) { }
 
 
@@ -23,7 +23,7 @@ value_t SparseBinaryColumn::inner_product(const vector<value_t> &vec) const {
 
 
 value_t SparseBinaryColumn::weighted_inner_product(
-    const vector<value_t> &vec, 
+    const vector<value_t> &vec,
     const vector<value_t> &weights) const {
   value_t result = 0.;
   const index_t* i;
@@ -41,7 +41,7 @@ value_t SparseBinaryColumn::weighted_norm_sq(
 }
 
 
-void SparseBinaryColumn::add_multiple(vector<value_t> &target, 
+void SparseBinaryColumn::add_multiple(vector<value_t> &target,
                                         value_t scalar) const {
   const index_t* i;
   const index_t* end = indices + nnz();
@@ -76,16 +76,16 @@ value_t SparseBinaryColumn::l2_norm_sq() const {
 
 SparseBinaryDataset::SparseBinaryDataset(
     const index_t *indices, const size_t *indptr,
-    index_t height, index_t width, size_t nnz, 
-    const value_t *b, index_t length_b) 
-    : Dataset(height, width, nnz, b, length_b) { 
+    index_t height, index_t width, size_t nnz,
+    const value_t *b, index_t length_b)
+    : Dataset(height, width, nnz, b, length_b) {
   A_cols.clear();
   A_cols.reserve(width);
   for (index_t j = 0; j < width; ++j) {
     size_t offset = indptr[j];
     index_t col_nnz = static_cast<index_t>(indptr[j + 1] - offset);
     const index_t *col_indices = indices + offset;
-    SparseBinaryColumn *col = 
+    SparseBinaryColumn *col =
               new SparseBinaryColumn(col_indices, col_nnz, height);
     A_cols.push_back(col);
   }
@@ -104,7 +104,7 @@ bool SparseBinaryDataset::any_columns_overlapping_in_submatrix(
   vector<bool> seen_row(height, false);
   for (index_t j = first_column_submatrix; j < end_column_submatrix; ++j) {
     const SparseBinaryColumn* col = A_cols[j];
-    for (const index_t* i = col->indices_begin(); 
+    for (const index_t* i = col->indices_begin();
          i != col->indices_end(); ++i) {
       if (seen_row[*i]) {
         return true;

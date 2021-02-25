@@ -1,6 +1,6 @@
-#include <blitzml/sparse_linear/sparse_linear_solver.h> 
-#include <blitzml/sparse_linear/lasso_solver.h> 
-#include <blitzml/sparse_linear/logreg_solver.h> 
+#include <blitzml/sparse_linear/sparse_linear_solver.h>
+#include <blitzml/sparse_linear/lasso_solver.h>
+#include <blitzml/sparse_linear/logreg_solver.h>
 
 
 namespace BlitzML {

@@ -9,19 +9,19 @@ value_t SquaredLoss::compute_loss(value_t a_dot_omega, value_t label) const {
 }
 
 
-value_t SquaredLoss::compute_conjugate(value_t dual_variable, 
-                                       value_t label) const { 
+value_t SquaredLoss::compute_conjugate(value_t dual_variable,
+                                       value_t label) const {
   return dual_variable * label + sq(dual_variable) / 2;
 }
 
 
-value_t SquaredLoss::compute_deriative(value_t a_dot_omega, 
+value_t SquaredLoss::compute_deriative(value_t a_dot_omega,
                                        value_t label) const {
   return a_dot_omega - label;
 }
 
 
-value_t SquaredLoss::compute_2nd_derivative(value_t a_dot_omega, 
+value_t SquaredLoss::compute_2nd_derivative(value_t a_dot_omega,
                                             value_t label) const {
   return 1.;
 }

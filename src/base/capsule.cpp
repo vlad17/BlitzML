@@ -4,8 +4,8 @@
 
 namespace BlitzML {
 
-CapsuleCalculator::CapsuleCalculator(value_t gamma, value_t Delta, value_t d_sq) 
-                : gamma(gamma), Delta(Delta) { 
+CapsuleCalculator::CapsuleCalculator(value_t gamma, value_t Delta, value_t d_sq)
+                : gamma(gamma), Delta(Delta) {
   if (Delta < 0.) Delta = 0.;
   if (d_sq < 0.) d_sq = 0.;
 
@@ -52,7 +52,7 @@ value_t CapsuleCalculator::compute_tau(value_t beta, value_t xi, int shift_term_
   return tau + beta * shift_term_multiplier * d;
 }
 
-value_t CapsuleCalculator::compute_deriv_tau(value_t beta, value_t xi, 
+value_t CapsuleCalculator::compute_deriv_tau(value_t beta, value_t xi,
                               int shift_term_multiplier) {
   value_t min_deriv = 1e-12;
   if (beta == 0.)
@@ -98,7 +98,7 @@ value_t CapsuleCalculator::compute_max_tau(value_t xi, int shift_term_multiplier
   value_t deriv_below = compute_deriv_tau(beta_below, xi, shift_term_multiplier);
   value_t theta_above = beta_above / (1 - beta_above);
   value_t theta_below = beta_below / (1 - beta_below);
-  value_t deriv_log_below_theta = deriv_below * sq(1 - beta_below) / value_below; 
+  value_t deriv_log_below_theta = deriv_below * sq(1 - beta_below) / value_below;
   value_t tau_upper_est = value_below * exp(deriv_log_below_theta * (theta_above - theta_below) / 2);
   return tau_upper_est;
 }

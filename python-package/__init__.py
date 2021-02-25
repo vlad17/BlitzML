@@ -1,6 +1,6 @@
 # coding: utf-8
 
-__all__ = ["LassoProblem", 
+__all__ = ["LassoProblem",
            "SparseLogisticRegressionProblem",
            "SparseHuberProblem",
            "SparseSquaredHingeProblem",

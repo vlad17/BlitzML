@@ -12,7 +12,7 @@ value_t SquaredHingeLoss::compute_loss(value_t a_dot_omega, value_t label) const
 }
 
 
-value_t SquaredHingeLoss::compute_conjugate(value_t dual_variable, 
+value_t SquaredHingeLoss::compute_conjugate(value_t dual_variable,
                                         value_t label) const {
   if (label == 0.) return -0.5;
   value_t one_plus_ratio = 1 + dual_variable / label;
@@ -20,7 +20,7 @@ value_t SquaredHingeLoss::compute_conjugate(value_t dual_variable,
 }
 
 
-value_t SquaredHingeLoss::compute_deriative(value_t a_dot_omega, 
+value_t SquaredHingeLoss::compute_deriative(value_t a_dot_omega,
                                         value_t label) const {
   value_t one_minus_label_times_aomega = 1 - label * a_dot_omega;
   if (one_minus_label_times_aomega <= 0.)

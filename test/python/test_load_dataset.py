@@ -86,7 +86,7 @@ class TestLoadSparseDataset(unittest.TestCase):
     self.A = sp.csc_matrix(A)
 
   def test_load_sparse_double(self):
-    A = self.A  
+    A = self.A
     A.data = A.data.astype(ctypes.c_double)
     dataset = blitzml._dataset.Dataset(A, self.b)
     create_call = dataset.dataset_c_wrapper._create_func.__name__
@@ -109,7 +109,7 @@ class TestLoadSparseDataset(unittest.TestCase):
     self.assertEqual(dataset.get_b_value_from_C(9), 32.)
 
   def test_load_sparse_float(self):
-    A = self.A  
+    A = self.A
     A.data = A.data.astype(ctypes.c_float)
     dataset = blitzml._dataset.Dataset(A, self.b)
     create_call = dataset.dataset_c_wrapper._create_func.__name__
@@ -132,7 +132,7 @@ class TestLoadSparseDataset(unittest.TestCase):
     self.assertEqual(dataset.get_b_value_from_C(9), 32.)
 
   def test_load_sparse_int(self):
-    A = self.A  
+    A = self.A
     A.data = A.data.astype(ctypes.c_int)
     dataset = blitzml._dataset.Dataset(A, self.b)
     create_call = dataset.dataset_c_wrapper._create_func.__name__
@@ -155,7 +155,7 @@ class TestLoadSparseDataset(unittest.TestCase):
     self.assertEqual(dataset.get_b_value_from_C(9), 32.)
 
   def test_load_sparse_bool(self):
-    A = self.A  
+    A = self.A
     A.data = A.data.astype(ctypes.c_bool)
     dataset = blitzml._dataset.Dataset(A, self.b)
     create_call = dataset.dataset_c_wrapper._create_func.__name__
@@ -178,7 +178,7 @@ class TestLoadSparseDataset(unittest.TestCase):
     self.assertEqual(dataset.get_b_value_from_C(9), 32.)
 
   def test_load_sparse_default(self):
-    A = self.A  
+    A = self.A
     A.data = np.abs(A.data).astype(ctypes.c_uint)
     dataset = blitzml._dataset.Dataset(A, self.b)
     create_call = dataset.dataset_c_wrapper._create_func.__name__

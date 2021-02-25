@@ -8,7 +8,7 @@ using std::vector;
 
 namespace BlitzML {
 
-value_t LassoSolver::compute_dual_obj() const { 
+value_t LassoSolver::compute_dual_obj() const {
   value_t loss = 0.5 * l2_norm_sq(x);
   return -(loss + l1_penalty * l1_norm(omega));
 }
@@ -45,7 +45,7 @@ inline value_t LassoSolver::update_feature_lasso(index_t i) {
 
   const Column& col = *A_cols[i];
   value_t current_value = omega[i];
-  value_t grad = col.inner_product(x) 
+  value_t grad = col.inner_product(x)
                           + num_examples * Delta_bias * col_means_cache[i];
   if (current_value == 0. && fabs(grad) < l1_penalty) {
     return 0.;
@@ -75,7 +75,7 @@ void LassoSolver::update_bias(int max_newton_itr) {
   value_t delta = -grad / x.size();
   bias += delta;
   add_scalar_to_vector(x, delta);
-} 
+}
 
 
 void LassoSolver::perform_backtracking() {
@@ -86,7 +86,7 @@ void LassoSolver::perform_backtracking() {
 }
 
 
-void LassoSolver::setup_proximal_newton_problem() { 
+void LassoSolver::setup_proximal_newton_problem() {
   Delta_bias = 0.;
 }
 

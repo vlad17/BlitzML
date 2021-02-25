@@ -18,7 +18,7 @@
   background-color: #293a5b;
 }
 
-.wy-side-nav-search input[type=text] { 
+.wy-side-nav-search input[type=text] {
   border-color: #DDD;
 }
 
@@ -51,11 +51,11 @@ a:visited {
   color: #d0d0d0;
 }
 
-.wy-side-nav-search a, 
+.wy-side-nav-search a,
 .wy-side-nav-search .wy-dropdown,
-.wy-side-nav-search a:visited, 
+.wy-side-nav-search a:visited,
 .wy-side-nav-search .wy-dropdown a:visited,
-.wy-side-nav-search a:hover, 
+.wy-side-nav-search a:hover,
 .wy-side-nav-search .wy-dropdown a:hover {
   color: #fcfcfc;
   text-decoration: none;

@@ -16,7 +16,7 @@ TEST_CASE( "test_sparse_dataset", "[dataset]" ) {
   indptr.push_back(0);
 
   // Column 1
-  indptr.push_back(0); 
+  indptr.push_back(0);
 
   // Column 2
   indices.push_back(2); data.push_back(2.5);
@@ -45,7 +45,7 @@ TEST_CASE( "test_sparse_dataset", "[dataset]" ) {
   b[2] = 2.0;
   b[4] = -0.5;
 
-  SparseDataset<float> ds(&indices[0], &indptr[0], &data[0], 
+  SparseDataset<float> ds(&indices[0], &indptr[0], &data[0],
                           5, 6, data.size(), &b[0], 5);
 
   vector<value_t> v(5, 0.);
@@ -109,7 +109,7 @@ TEST_CASE( "test_sparse_dataset_types", "[dataset]" ) {
 
 TEST_CASE( "test_dense_dataset", "[datset]" ) {
   double data[12] = {1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12.};
-  value_t b[4] = {1., 1., -3., 1.}; 
+  value_t b[4] = {1., 1., -3., 1.};
   DenseDataset<double> ds(data, 4, 3, b, 4);
 
   value_t val = ds.column(0)->l2_norm_sq();
@@ -160,7 +160,7 @@ TEST_CASE( "test_binary_dataset", "[datset]" ) {
   SparseBinaryDataset ds(indices, indptr, 5, 4, 8, b, 5);
 
   vector<value_t> vec;
-  vec.push_back(0.1); vec.push_back(0.2); vec.push_back(-0.3); 
+  vec.push_back(0.1); vec.push_back(0.2); vec.push_back(-0.3);
   vec.push_back(-0.4); vec.push_back(0.5);
 
   REQUIRE( ds.column(0)->inner_product(vec) == 0. );
@@ -183,7 +183,7 @@ TEST_CASE( "test_binary_dataset", "[datset]" ) {
 
 TEST_CASE( "test_dataset_general", "[dataset]" ) {
   double data[12] = {1., -0.3, 0., 2.1, 5., 1.0, 7., 8., 9., 0., -1., 12.};
-  value_t b[4] = {1., 1., -3., 1.}; 
+  value_t b[4] = {1., 1., -3., 1.};
   DenseDataset<double> ds(data, 4, 3, b, 4);
 
   vector<value_t> vec(4, 0.);

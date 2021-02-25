@@ -10,10 +10,10 @@ FLAGS = -O3 -Wall
 LIBNAME=blitzml
 SLIB = lib$(LIBNAME).so
 
-all: $(SLIB) 
+all: $(SLIB)
 
 $(SLIB): $(OBJ_FILES) | lib
-	$(CXX) -shared -o lib/$@ $^ 
+	$(CXX) -shared -o lib/$@ $^
 
 obj/%.o: %.cpp
 	$(CXX) $(FLAGS) -fPIC $(INC) -c -o $@ $<

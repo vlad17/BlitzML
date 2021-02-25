@@ -9,7 +9,7 @@ double get_time();
 class Timer {
   public:
     Timer();
-    virtual ~Timer() { } 
+    virtual ~Timer() { }
     double current_time();
     void reset();
     double elapsed_time();

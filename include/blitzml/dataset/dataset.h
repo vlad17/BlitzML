@@ -12,11 +12,11 @@ class Column {
     virtual ~Column() { }
 
     index_t length() const { return length_; }
-    index_t nnz() const { return nnz_; } 
+    index_t nnz() const { return nnz_; }
 
     virtual value_t inner_product(const std::vector<value_t> &vec) const = 0;
     virtual value_t weighted_inner_product(
-        const std::vector<value_t> &vec, 
+        const std::vector<value_t> &vec,
         const std::vector<value_t> &weights) const = 0;
     virtual value_t weighted_norm_sq(
         const std::vector<value_t> &weights) const = 0;
@@ -42,8 +42,8 @@ class Column {
 
 class Dataset {
   public:
-    Dataset(index_t height, index_t width, size_t nnz, 
-            const value_t *b, index_t length_b) 
+    Dataset(index_t height, index_t width, size_t nnz,
+            const value_t *b, index_t length_b)
         : height(height), width(width), nnz_(nnz), b(b), length_b(length_b) { }
 
     virtual ~Dataset() { debug("delete dataset"); }
@@ -57,17 +57,17 @@ class Dataset {
     const value_t* b_values() const { return b; }
 
     virtual void contiguous_submatrix_multiply(
-        const std::vector<value_t> &values, value_t* result, 
+        const std::vector<value_t> &values, value_t* result,
         index_t first_column_submatrix, index_t end_column_submatrix) const;
-    
+
     virtual bool any_columns_overlapping_in_submatrix(
-        index_t first_column_submatrix, 
+        index_t first_column_submatrix,
         index_t end_column_submatrix) const = 0;
 
   protected:
-    index_t height; 
-    index_t width; 
-    size_t nnz_; 
+    index_t height;
+    index_t width;
+    size_t nnz_;
     const value_t* b;
     index_t length_b;
 };

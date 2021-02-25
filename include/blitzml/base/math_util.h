@@ -52,7 +52,7 @@ inline value_t l2_norm_sq(const std::vector<T> &vec) {
 
 
 template <typename T>
-inline value_t l2_norm_diff_sq(const std::vector<T> &vec1, 
+inline value_t l2_norm_diff_sq(const std::vector<T> &vec1,
                                const std::vector<T> &vec2) {
   value_t result = 0.;
   for (size_t ind = 0; ind < vec1.size(); ++ind) {
@@ -63,7 +63,7 @@ inline value_t l2_norm_diff_sq(const std::vector<T> &vec1,
 
 
 template <typename T>
-inline value_t l2_norm_diff(const std::vector<T> &vec1, 
+inline value_t l2_norm_diff(const std::vector<T> &vec1,
                             const std::vector<T> &vec2) {
   return std::sqrt(l2_norm_diff_sq(vec1, vec2));
 }
@@ -134,7 +134,7 @@ inline value_t inner_product(const T* values1, const T* values2, size_t size) {
 
 
 template <typename T>
-inline value_t inner_product(const std::vector<T> &vec1, 
+inline value_t inner_product(const std::vector<T> &vec1,
                              const std::vector<T> &vec2) {
   return inner_product(&vec1[0], &vec2[0], vec1.size());
 }
@@ -174,7 +174,7 @@ inline T max_vector(const std::vector<T> & vec) {
 
 template <typename T>
 T median(const std::vector<T>& values, size_t first, size_t last) {
-  std::vector<T> values_of_interest(values.begin() + first, 
+  std::vector<T> values_of_interest(values.begin() + first,
                                     values.begin() + last);
   size_t mid = values_of_interest.size() / 2;
   std::sort(values_of_interest.begin(), values_of_interest.end());

@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <blitzml/base/common.h>
 #include <blitzml/dataset/dataset.h>
@@ -8,7 +8,7 @@ namespace BlitzML {
 template <typename data_t>
 class SparseColumn : public Column {
   public:
-    SparseColumn(const index_t *indices, const data_t *values, 
+    SparseColumn(const index_t *indices, const data_t *values,
                  index_t nnz, index_t length);
 
     SparseColumn() { }
@@ -17,7 +17,7 @@ class SparseColumn : public Column {
 
     value_t inner_product(const std::vector<value_t> &vec) const;
     value_t weighted_inner_product(
-        const std::vector<value_t> &vec, 
+        const std::vector<value_t> &vec,
         const std::vector<value_t> &weights) const;
     value_t weighted_norm_sq(const std::vector<value_t> &weights) const;
 
@@ -41,7 +41,7 @@ class SparseColumn : public Column {
 template <typename data_t>
 class SparseDataset : public Dataset {
   public:
-    SparseDataset(const index_t *indices, const size_t *indptr, 
+    SparseDataset(const index_t *indices, const size_t *indptr,
                   const data_t *data, index_t height, index_t width, size_t nnz,
                   const value_t *b, index_t length_b);
 

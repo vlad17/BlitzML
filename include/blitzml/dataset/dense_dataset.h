@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <blitzml/base/common.h>
 #include <blitzml/dataset/dataset.h>
@@ -13,7 +13,7 @@ class DenseColumn : public Column {
     virtual ~DenseColumn() { }
 
     value_t inner_product(const std::vector<value_t> &vec) const;
-    value_t weighted_inner_product(const std::vector<value_t> &vec, 
+    value_t weighted_inner_product(const std::vector<value_t> &vec,
                                    const std::vector<value_t> &weights) const;
     value_t weighted_norm_sq(const std::vector<value_t> &weights) const;
 
@@ -36,7 +36,7 @@ size_t coordinates2dense_array_index(index_t row, index_t col, index_t height);
 template <typename data_t>
 class DenseDataset : public Dataset {
   public:
-    DenseDataset(const data_t *data, index_t height, index_t width, 
+    DenseDataset(const data_t *data, index_t height, index_t width,
                  const value_t *b, index_t length_b);
 
     virtual ~DenseDataset();

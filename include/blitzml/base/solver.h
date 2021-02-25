@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <blitzml/base/common.h>
 #include <blitzml/base/working_set.h>
@@ -157,6 +157,6 @@ class Solver {
     Solver::ConvergenceStatus get_convergence_status();
     void set_status_message(char* status_message, Solver::ConvergenceStatus status);
 
-}; 
+};
 
 } // namespace BlitzML

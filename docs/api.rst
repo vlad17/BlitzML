@@ -1,6 +1,6 @@
 .. container:: note4github
 
-   Read the rendered documentation at https://tbjohns.github.io/BlitzML/. 
+   Read the rendered documentation at https://tbjohns.github.io/BlitzML/.
 
 
 BlitzML API reference
@@ -21,7 +21,7 @@ Problem classes
 
 .. autoclass:: LassoProblem
   :members:
-  :inherited-members: 
+  :inherited-members:
 
 .. autoclass:: SparseLogisticRegressionProblem
 
@@ -38,7 +38,7 @@ Problem classes
   Calls to ``solve`` and ``compute_max_l1_penalty`` use interfaces identical to
   those in ``blitzml.LassoProblem``.
 
-.. autoclass:: SparseSmoothedHingeProblem  
+.. autoclass:: SparseSmoothedHingeProblem
 
 Solution classes
 ~~~~~~~~~~~~~~~~
@@ -46,13 +46,13 @@ Solution classes
 .. module:: blitzml._sparse_linear
 
 .. autoclass:: LassoSolution()
-  :inherited-members: 
+  :inherited-members:
   :members:
 
 .. autoclass:: SparseLogisticRegressionSolution()
   :members:
 
-  Except for the following additional method, interface is identical to 
+  Except for the following additional method, interface is identical to
   ``LassoSolution``'s interface.
 
 .. autoclass:: SparseHuberSolution()
@@ -73,11 +73,11 @@ Utility functions
 
 .. module:: blitzml
 
-.. autofunction:: load_solution  
+.. autofunction:: load_solution
 
 .. autofunction:: parse_log_directory
 
-.. autofunction:: suppress_warnings  
+.. autofunction:: suppress_warnings
 
-.. autofunction:: unsuppress_warnings  
+.. autofunction:: unsuppress_warnings
 

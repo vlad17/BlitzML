@@ -16,13 +16,13 @@ value_t HuberLoss::compute_loss(value_t a_dot_omega, value_t label) const {
 }
 
 
-value_t HuberLoss::compute_conjugate(value_t dual_variable, 
+value_t HuberLoss::compute_conjugate(value_t dual_variable,
                                      value_t label) const {
   return dual_variable * label + sq(dual_variable) / 2;
 }
 
 
-value_t HuberLoss::compute_deriative(value_t a_dot_omega, 
+value_t HuberLoss::compute_deriative(value_t a_dot_omega,
                                      value_t label) const {
   value_t residual = a_dot_omega - label;
   if (residual < -1.) {

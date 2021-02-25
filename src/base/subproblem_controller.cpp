@@ -23,15 +23,15 @@ namespace BlitzML {
     }
     if (itr >= subproblem_params.max_iterations) {
       compute_gap = true;
-    } 
+    }
     if (elapsed_time < subproblem_params.min_time) {
       compute_gap = false;
     }
 
-    if (itr >= scheduled_termination_check 
+    if (itr >= scheduled_termination_check
         && subproblem_params.epsilon > 0.) {
       compute_gap = true;
-    } 
+    }
 
     if (compute_gap) {
       scheduled_termination_check += 20;
@@ -48,7 +48,7 @@ namespace BlitzML {
     }
     if (itr >= subproblem_params.max_iterations) {
       return true;
-    } 
+    }
     if (elapsed_time < subproblem_params.min_time) {
       return false;
     }

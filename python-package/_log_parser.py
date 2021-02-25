@@ -78,7 +78,7 @@ class _LogParser(object):
   @property
   def _main_filepath(self):
     return os.path.join(self._dir, "main.log")
-    
+
   def _set_valid_dir(self):
     self._valid_dir = True
     if not os.path.exists(self._dir):
@@ -114,5 +114,5 @@ class _LogParser(object):
       path = os.path.join(self._dir, filename)
       d[list_name] = load_list_from_file(path)
     return d
-    
+
 

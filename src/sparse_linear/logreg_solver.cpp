@@ -108,11 +108,11 @@ void SparseLogRegSolver::update_bias(int max_newton_itr) {
     return;
   }
 
-  value_t exp_delta_total = 1.0;  
+  value_t exp_delta_total = 1.0;
   if (is_vector_const(exp_Aomega)) {
     // Special case closed-form solution:
     // (this case occurs when we initialize model as all zeros)
-    exp_delta_total = (exp_Aomega[0] * num_positive_labels) / 
+    exp_delta_total = (exp_Aomega[0] * num_positive_labels) /
                       (num_examples - num_positive_labels);
     scale_vector(exp_Aomega, exp_delta_total);
     max_newton_itr = 0;
@@ -148,7 +148,7 @@ void SparseLogRegSolver::update_bias(int max_newton_itr) {
 
   value_t change = log(exp_delta_total);
   bias += change;
-  
+
   sum_x = 0.;
   for (index_t j = 0; j < num_examples; ++j) {
     Aomega[j] += change;
@@ -190,7 +190,7 @@ void SparseLogRegSolver::perform_backtracking() {
              low_exp_Aomega[j] < 1e15 &&  low_exp_Aomega[j] > 1e-15) {
           exp_Aomega[j] = sqrt(high_exp_Aomega[j] * low_exp_Aomega[j]);
         } else {
-          exp_Aomega[j] = exp(Aomega[j] + 
+          exp_Aomega[j] = exp(Aomega[j] +
                               step_size * (Delta_Aomega[j] + Delta_bias));
         }
         x[j] = compute_x_value(j);
@@ -215,8 +215,8 @@ void SparseLogRegSolver::perform_backtracking() {
     }
   }
 
-  for (const_index_itr ind = ws.begin_indices(); 
-       ind != ws.end_indices(); 
+  for (const_index_itr ind = ws.begin_indices();
+       ind != ws.end_indices();
        ++ind) {
     index_t i = ws.ith_member(*ind);
     omega[i] += step_size * Delta_omega[*ind];
@@ -245,7 +245,7 @@ value_t SparseLogRegSolver::compute_dual_obj() const {
 }
 
 
-void SparseLogRegSolver::update_subproblem_obj_vals() { 
+void SparseLogRegSolver::update_subproblem_obj_vals() {
   obj_vals.set_dual_obj(compute_dual_obj());
 
   value_t gap = 0.;

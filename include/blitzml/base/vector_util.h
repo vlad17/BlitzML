@@ -25,7 +25,7 @@ void crude_shuffle_helper(std::vector<T> &vec, size_t first, size_t last, size_t
 
 template <typename T>
 void crude_shuffle(std::vector<T> &vec, size_t first, size_t last, int seed=0) {
-  size_t shift1, shift2; 
+  size_t shift1, shift2;
   switch (seed % 5) {
     case 0:
       shift1 = 59;
@@ -67,7 +67,7 @@ class IndirectComparator {
 };
 
 
-inline void indirect_sort_indices(std::vector<index_t> &indices, 
+inline void indirect_sort_indices(std::vector<index_t> &indices,
                                   const std::vector<value_t> &values_lookup) {
   IndirectComparator cmp(values_lookup);
   std::sort(indices.begin(), indices.end(), cmp);

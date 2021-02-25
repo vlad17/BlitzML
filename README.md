@@ -1,6 +1,6 @@
 # BlitzML
 
-BlitzML is a fast, easy-to-use solver for training some popular linear 
+BlitzML is a fast, easy-to-use solver for training some popular linear
 machine learning models.  Currently BlitzML trains:
 * Sparse models with L1 regularization (Lasso-type problems).
 <!-- * Linear models with piecewise losses and L2 regularization (such as linear SVMs). -->
@@ -11,14 +11,14 @@ You can use BlitzML as a Python package or C library.  BlitzML uses minimal memo
 
 ## Problems that BlitzML solves
 
-BlitzML trains sparse models by solving the problem 
+BlitzML trains sparse models by solving the problem
 
 <img src="img/l1_obj.png" width="280" />
 
 Here are the available loss functions:
 
 | Problem                    | Loss function      |
-| ---------------------------|--------------------| 
+| ---------------------------|--------------------|
 | Lasso                      | <img src="img/square_loss.png" width="180" align="center" /> |
 | Sparse logistic regression | <img src="img/logistic_loss.png" width="248" align="center" /> |
 | Sparse Huber               | <img src="img/huber_loss.png" width="355" align="center" /> |

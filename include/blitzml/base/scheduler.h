@@ -1,4 +1,4 @@
-#pragma once 
+#pragma once
 
 #include <blitzml/base/common.h>
 #include <blitzml/base/capsule.h>
@@ -21,10 +21,10 @@ class Scheduler {
 
     void optimize_xi_and_epsilon(unsigned short &best_capsule_ind, value_t &best_epsilon, double &best_time_limit);
 
-    void record_subproblem_size(value_t xi, 
+    void record_subproblem_size(value_t xi,
                                 value_t subproblem_size);
     void record_overhead_time(double time);
-    void record_subproblem_progress(value_t new_Delta, 
+    void record_subproblem_progress(value_t new_Delta,
                                     value_t subproblem_Delta,
                                     double subproblem_time,
                                     double alpha);

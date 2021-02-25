@@ -18,10 +18,10 @@ def source_files_generator():
 
 ext = Extension("blitzml.libblitzml",
                 sources=list(source_files_generator()),
-                extra_compile_args = ["-O3"], 
+                extra_compile_args = ["-O3"],
                 extra_link_args = [],
                 include_dirs=[os.path.join(library_dir, "include")]
-) 
+)
 
 def new_get_export_symbols(self, ext):
   return ext.export_symbols
